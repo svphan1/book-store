@@ -9,7 +9,8 @@ class App extends Component {
   state = {
     books: [],
     emptyCart: [],
-    total: []
+    total: [],
+    search: ''
   }
 
   async componentDidMount() {
@@ -29,29 +30,64 @@ class App extends Component {
     return this.state.emptyCart.length * 5
   }
 
-  filterTitle = () => {
-    let filtered = this.state.books.title
-    console.log('filter', filtered)
+  clearSearch = () => {
+    window.location.reload();
   }
+
+  filterTitle = () => {
+    this.setState({
+      books:  this.state.books.sort(function(a, b) {
+        let nameA = a.title.toLowerCase(), 
+        nameB = b.title.toLowerCase();
+        if (nameA < nameB) 
+          return -1
+          if (nameA > nameB)
+          return 1
+      })
+    })
+  }
+
+  filterAuthor = () => {
+    this.setState({
+      books:  this.state.books.sort(function(a, b) {
+        let nameA = a.author.toLowerCase(), 
+        nameB = b.author.toLowerCase();
+        if (nameA < nameB) 
+          return -1
+          if (nameA > nameB)
+          return 1
+      })
+    })
+  }
+
+  // updateSearch = (e) => {
+  //   let newValue = e.target.value
+  //   console.log(newValue)
+  //   // this.setState({state: e.target.value})
+  // }
 
   render() {
     return (
       <div>
         <SearchBar 
-        filterTitle={this.filterTitle}/>
-        <div className="contain">
-          <div className="books">
-            <h3>Books</h3>
-            <BookList 
-            bookNames={this.state.books}
-            addToCart={this.addToCart} />
+        filterTitle={this.filterTitle}
+        filterAuthor={this.filterAuthor}
+        searchFilter={this.state.search}
+        updateSearch={this.updateSearch}
+        clearSearch={this.clearSearch}/>
+          <div className="contain">
+            <div className="books">
+              <h3>Books</h3>
+              <BookList 
+              bookNames={this.state.books}
+              addToCart={this.addToCart} />
+            </div>
+            <div className="cart">
+              <CheckOut 
+              cartItems={this.state.emptyCart}
+              getTotal={this.getTotal}/>
+            </div>
           </div>
-          <div className="cart">
-            <CheckOut 
-            cartItems={this.state.emptyCart}
-            getTotal={this.getTotal}/>
-          </div>
-        </div>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchBar = ({filterTitle}) => { 
+const SearchBar = ({filterTitle, filterAuthor, searchFilter, updateSearch, clearSearch}) => { 
   return(
     <nav className="navbar navbar-dark bg-success sticky-top navbar-expand-lg mb-4 ">
     <a className="navbar-brand" href="#">JS Book Store</a>
@@ -15,13 +15,13 @@ const SearchBar = ({filterTitle}) => {
         {/* <!-- Links --> */}
         <ul className="navbar-nav mr-auto">
             <li className="nav-item active">
-                <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
+                <a className="nav-link" onClick={clearSearch} href="#">Home <span className="sr-only">(current)</span></a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#" onClick={filterTitle}>Filter by Title </a>
+                <a className="nav-link" onClick={filterTitle} href="#" >Filter by Title </a>
             </li>
             <li className="nav-item">
-                <a className="nav-link" href="#">Filter by Author</a>
+                <a className="nav-link" onClick={filterAuthor} href="#">Filter by Author</a>
             </li>
         </ul>
 
@@ -29,7 +29,7 @@ const SearchBar = ({filterTitle}) => {
             <li className="nav-item">
                 <a className="nav-link" href="#">Filter by Search</a>
             </li>
-                <input type="text" placeholder="Search" aria-label="Search"/>
+                <input onChange={updateSearch} type="text" placeholder="Search"/>
         </ul>
 
     </div>
