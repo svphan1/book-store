@@ -17,6 +17,9 @@
   width: 100%;
 }
 
+.remove {
+  color: red;
+}
 
 .cart2 {
   border: 1px solid #ccc;

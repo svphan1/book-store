@@ -1,13 +1,14 @@
 import React from 'react';
 
-const CheckOut = ({cartItems, getTotal}) => {
+const CheckOut = ({cartItems, getTotal, removeFromCart}) => {
   const addToCart = (list) => {
-    return list.map((book, id) => {
+    return list.map((book, id, index) => {
       return (
         <tr key={id}>
           <td>{book.title}</td>
           <td>{book.author}</td>
           <td>${book.price}</td>
+          <td><button className="remove" onClick={removeFromCart}>X</button></td>
         </tr>
       )
     })
@@ -24,7 +25,7 @@ const CheckOut = ({cartItems, getTotal}) => {
         </tr>
         </thead>
         <tbody>
-          {addToCart(cartItems)}
+          {addToCart(cartItems)}       
           <tr>
             <td>Total:${getTotal()}</td>
           </tr>

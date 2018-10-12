@@ -22,8 +22,15 @@ class App extends Component {
   addToCart = (e) => {
     let updatedCart = this.state.books.filter(book => book.title === e.target.value)
     this.setState({ emptyCart: this.state.emptyCart.concat(updatedCart) })
-    console.log('length',this.state.emptyCart.length)
     this.getTotal()
+    console.log('current cart', this.state.emptyCart)
+  }
+
+  removeFromCart = (index) => {
+    const currentCart = this.state.emptyCart
+    console.log('bookie', currentCart)
+    currentCart.splice(index, 1);
+    this.setState({currentCart: currentCart});
   }
 
   getTotal = () => {
@@ -36,12 +43,12 @@ class App extends Component {
 
   filterTitle = () => {
     this.setState({
-      books:  this.state.books.sort(function(a, b) {
-        let nameA = a.title.toLowerCase(), 
-        nameB = b.title.toLowerCase();
-        if (nameA < nameB) 
+      books: this.state.books.sort(function (a, b) {
+        let nameA = a.title.toLowerCase(),
+          nameB = b.title.toLowerCase();
+        if (nameA < nameB)
           return -1
-          if (nameA > nameB)
+        if (nameA > nameB)
           return 1
       })
     })
@@ -49,45 +56,46 @@ class App extends Component {
 
   filterAuthor = () => {
     this.setState({
-      books:  this.state.books.sort(function(a, b) {
-        let nameA = a.author.toLowerCase(), 
-        nameB = b.author.toLowerCase();
-        if (nameA < nameB) 
+      books: this.state.books.sort(function (a, b) {
+        let nameA = a.author.toLowerCase(),
+          nameB = b.author.toLowerCase();
+        if (nameA < nameB)
           return -1
-          if (nameA > nameB)
+        if (nameA > nameB)
           return 1
       })
     })
   }
 
-  // updateSearch = (e) => {
-  //   let newValue = e.target.value
-  //   console.log(newValue)
-  //   // this.setState({state: e.target.value})
-  // }
+  updateSearch = (e) => {
+    let newValue = e.target.value
+    console.log(newValue)
+    // this.setState({state: e.target.value})
+  }
 
   render() {
     return (
       <div>
-        <SearchBar 
-        filterTitle={this.filterTitle}
-        filterAuthor={this.filterAuthor}
-        searchFilter={this.state.search}
-        updateSearch={this.updateSearch}
-        clearSearch={this.clearSearch}/>
-          <div className="contain">
-            <div className="books">
-              <h3>Books</h3>
-              <BookList 
+        <SearchBar
+          filterTitle={this.filterTitle}
+          filterAuthor={this.filterAuthor}
+          searchFilter={this.state.search}
+          updateSearch={this.updateSearch}
+          clearSearch={this.clearSearch} />
+        <div className="contain">
+          <div className="books">
+            <h3>Books</h3>
+            <BookList
               bookNames={this.state.books}
               addToCart={this.addToCart} />
-            </div>
-            <div className="cart">
-              <CheckOut 
-              cartItems={this.state.emptyCart}
-              getTotal={this.getTotal}/>
-            </div>
           </div>
+          <div className="cart">
+            <CheckOut
+              cartItems={this.state.emptyCart}
+              getTotal={this.getTotal}
+              removeFromCart={this.removeFromCart} />
+          </div>
+        </div>
       </div>
     );
   }
