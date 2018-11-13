@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-const BookList = ({ bookNames, addToCart }) => {
+const BookData = ( {bookNames} ) => {
   const titles = (filteredBooks) => {
     return filteredBooks.map((book, id) => {
       return (
@@ -14,8 +14,10 @@ const BookList = ({ bookNames, addToCart }) => {
     })
   }
   return (
-    <section>{titles(bookNames)} </section>
+    <div>
+      <section>{titles(bookNames)} </section>
+    </div>
   )
 }
 
-export default BookList;
+export default BookData;

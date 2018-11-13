@@ -1,8 +1,12 @@
 import React from 'react';
 
-const CheckOut = ({cartItems, getTotal, removeFromCart}) => {
+const CheckOut = ({
+  cartItems, 
+  getTotal, 
+  removeFromCart}) => {
+    
   const addToCart = (list) => {
-    return list.map((book, id, index) => {
+    return list.map((book, id) => {
       return (
         <tr key={id}>
           <td>{book.title}</td>
